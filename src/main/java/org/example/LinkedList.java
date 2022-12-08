@@ -1,84 +1,112 @@
 package org.example;
 
 public class LinkedList {
+    // Inner class for the nodes of the linked list
+    private static class Node {
+        private int data;
+        private Node next;
+
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Fields for the linked list
     private Node head;
-    class Node {
-        int data;
-        Node next;
-        Node(int d) {
-            data = d;
-            next = null;
-        }
-    }
-    public void push(int newData) {
-        Node newNode = new Node(newData);
-        newNode.next = head;
-        head = newNode;
+    private int size;
+
+    // Constructor to create an empty linked list
+    public LinkedList() {
+        this.head = null;
+        this.size = 0;
     }
 
-    // Method to insert a new node after a given node
-    public void insertAfter(Node prevNode, int newData) {
-        if (prevNode == null) {
-            System.out.println("The given previous node cannot be null");
-            return;
-        }
-        Node newNode = new Node(newData);
-        newNode.next = prevNode.next;
-        prevNode.next = newNode;
-    }
+    // Method to add a new node to the linked list
+    public void add(int data) {
+        Node newNode = new Node(data);
 
-    // Method to insert a new node at the end of the list
-    public void append(int newData) {
-        Node newNode = new Node(newData);
         if (head == null) {
-            head = new Node(newData);
+            // If the linked list is empty, set the new node as the head
+            head = newNode;
+        } else {
+            // Otherwise, traverse the list to find the last node and add the new node after it
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+
+        // Increase the size of the list
+        size++;
+    }
+
+    // Method to remove a node from the linked list
+    public void remove(int data) {
+        if (head == null) {
+            // If the linked list is empty, do nothing
             return;
+        } else if (head.data == data) {
+            // If the node to be removed is the head, set the head to the next node
+            head = head.next;
+        } else {
+            // Otherwise, traverse the list to find the node to be removed
+            Node current = head;
+            while (current.next != null && current.next.data != data) {
+                current = current.next;
+            }
+            if (current.next != null) {
+                // If the node was found, remove it by setting the next reference of the current node to the node after the one to be removed
+                current.next = current.next.next;
+            }
         }
-        newNode.next = null;
-        Node last = head;
-        while (last.next != null) {
-            last = last.next;
-        }
-        last.next = newNode;
+
+        // Decrease the size of the list
+        size--;
     }
 
-    // Method to delete a node with a given value
-    public void deleteNode(int key) {
-        Node temp = head;
-        Node prev = null;
-        if (temp != null && temp.data == key) {
-            head = temp.next;
-            return;
+    // Method to check whether a node with the given data exists in the list
+    public boolean contains(int data) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == data) {
+                return true;
+            }
+            current = current.next;
         }
-        while (temp != null && temp.data != key) {
-            prev = temp;
-            temp = temp.next;
-        }
-        if (temp == null) return;
-        prev.next = temp.next;
+        return false;
     }
 
-    // Method to print the linked list
-    public void printList() {
-        Node currNode = head;
-        while (currNode != null) {
-            System.out.print(currNode.data + " ");
-            currNode = currNode.next;
-        }
+    // Method to get the size of the linked list
+    public int size() {
+        return size;
     }
 
+    // Method to convert the linked list to a string
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Node current = head;
+        while (current != null) {
+            sb.append(current.data).append(" ");
+            current = current.next;
+        }
+        return sb.toString();
+    }
     public static void main(String[] args) {
-        LinkedList llist = new LinkedList();
+        LinkedList list = new LinkedList();
+        list.add(5);
+        list.add(10);
+        list.add(15);
+        System.out.println(list); // prints "5 10 15"
 
-        llist.append(6);
-        llist.push(7);
-        llist.push(1);
-        llist.append(4);
-        llist.insertAfter(llist.head.next, 8);
-        System.out.println("Created Linked list is: ");
-        llist.printList();
-        llist.deleteNode(1);
-        System.out.println("\nLinked List after Deletion at index 1: ");
-        llist.printList();
+        list.remove(10);
+        System.out.println(list); // prints "5 15"
+
+        boolean exists = list.contains(15); // true
+        int size = list.size(); // 2
+        System.out.println(exists); // prints "true"
+        System.out.println(size); // prints "2"
     }
+
 }
