@@ -1,20 +1,11 @@
 package org.example;
 
+import javax.sound.midi.SysexMessage;
+
 public class MergeSort {
     private int[] array;
     private int[] tempMergArr;
     private int length;
-
-    public static void main(String a[]){
-
-        int[] inputArr = {45,23,11,89,77,98,4,28,65,43};
-        MergeSort mms = new MergeSort();
-        mms.sort(inputArr);
-        for(int i:inputArr){
-            System.out.print(i);
-            System.out.print(" ");
-        }
-    }
 
     public void sort(int inputArr[]) {
         this.array = inputArr;
@@ -60,5 +51,22 @@ public class MergeSort {
             i++;
         }
 
+    }
+
+    public static void main(String a[]){
+        int[] inputArr = {45,23,11,89,77,98,4,28,65,43};
+        System.out.print("UnSorted array: ");
+        for(int i:inputArr){
+            System.out.print(i);
+            System.out.print(" ");
+        }
+        System.out.print("\n");
+        MergeSort mms = new MergeSort();
+        mms.sort(inputArr);
+        System.out.print("Sorted array: ");
+        for(int i:inputArr){
+            System.out.print(i);
+            System.out.print(" ");
+        }
     }
 }
