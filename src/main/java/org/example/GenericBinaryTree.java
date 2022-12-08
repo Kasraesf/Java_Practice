@@ -4,98 +4,120 @@ import java.util.ArrayList;
 
 public class GenericBinaryTree <T extends Comparable<T>>{
     private Node<T> root;
-    public GenericBinaryTree() {
-        root = null;
-    }
 
-    // adds a new node with the given data to the tree
-    public void add(T data) {
-        root = add(root, data);
-    }
-
-    // recursive method for adding a new node with the given data to the tree
-    private Node<T> add(Node<T> current, T data) {
-        if (current == null) {
-            return new Node<T>(data);
+    public void insert(T data) {
+        if (root == null) {
+            root = new Node<>(data);
+        } else {
+            insertRecursive(root, data);
         }
+    }
 
-        if (data.compareTo(current.getData()) < 0) {
-            current.setLeft(add(current.getLeft(), data));
-        } else if (data.compareTo(current.getData()) > 0) {
-            current.setRight(add(current.getRight(), data));
+    private void insertRecursive(Node<T> current, T data) {
+        if (data.compareTo(current.data) < 0) {
+            if (current.left == null) {
+                current.left = new Node<>(data);
+            } else {
+                insertRecursive(current.left, data);
+            }
+        } else if (data.compareTo(current.data) > 0) {
+            if (current.right == null) {
+                current.right = new Node<>(data);
+            } else {
+                insertRecursive(current.right, data);
+            }
         }
-
-        return current;
     }
 
-    // checks if the tree contains the given data
-    public boolean contains(T data) {
-        return contains(root, data);
+    public boolean search(T data) {
+        return searchRecursive(root, data);
     }
 
-    // recursive method for checking if the tree contains the given data
-    private boolean contains(Node<T> current, T data) {
+    private boolean searchRecursive(Node<T> current, T data) {
         if (current == null) {
             return false;
         }
-
-        if (data.compareTo(current.getData()) == 0) {
+        if (data.compareTo(current.data) == 0) {
             return true;
-        } else if (data.compareTo(current.getData()) < 0) {
-            return contains(current.getLeft(), data);
-        } else {
-            return contains(current.getRight(), data);
         }
+        return data.compareTo(current.data) < 0 ? searchRecursive(current.left, data) : searchRecursive(current.right, data);
     }
 
-    // returns a list of the tree's elements in ascending order
-    public ArrayList<T> inOrder() {
-        ArrayList<T> list = new ArrayList<>();
-        inOrder(root, list);
-        return list;
+    public void delete(T data) {
+        root = deleteRecursive(root, data);
     }
 
-    // recursive method for adding the tree's elements to the list in ascending order
-    private void inOrder(Node<T> current, ArrayList<T> list) {
+    private Node<T> deleteRecursive(Node<T> current, T data) {
         if (current == null) {
-            return;
+            return null;
         }
-
-        inOrder(current.getLeft(), list);
-        list.add(current.getData());
-        inOrder(current.getRight(), list);
+        if (data.compareTo(current.data) == 0) {
+            // Case 1: no children
+            if (current.left == null && current.right == null) {
+                return null;
+            }
+            // Case 2: only 1 child
+            if (current.right == null) {
+                return current.left;
+            }
+            if (current.left == null) {
+                return current.right;
+            }
+            // Case 3: 2 children
+            T smallestValue = findSmallestValue(current.right);
+            current.data = smallestValue;
+            current.right = deleteRecursive(current.right, smallestValue);
+            return current;
+        }
+        if (data.compareTo(current.data) < 0) {
+            current.left = deleteRecursive(current.left, data);
+            return current;
+        }
+        current.right = deleteRecursive(current.right, data);
+        return current;
     }
 
-    // inner class for creating nodes in the tree
-    private class Node<T extends Comparable<T>> {
+    private T findSmallestValue(Node<T> root) {
+        return root.left == null ? root.data : findSmallestValue(root.left);
+    }
+
+    private static class Node<T extends Comparable<T>> {
         private T data;
         private Node<T> left;
         private Node<T> right;
 
-        public Node(T data) {
+        private Node(T data) {
             this.data = data;
-            left = null;
-            right = null;
-        }
-
-        public T getData() {
-            return data;
-        }
-
-        public Node<T> getLeft() {
-            return left;
-        }
-
-        public void setLeft(Node<T> left) {
-            this.left = left;
-        }
-
-        public Node<T> getRight() {
-            return right;
-        }
-
-        public void setRight(Node<T> right) {
-            this.right = right;
         }
     }
+
+    public void printInOrder() {
+        printInOrderRecursive(root);
+    }
+
+    private void printInOrderRecursive(Node<T> current) {
+        if (current != null) {
+            printInOrderRecursive(current.left);
+            System.out.print(current.data + " ");
+            printInOrderRecursive(current.right);
+        }
+    }
+
+    public static void main(String[] args) {
+        GenericBinaryTree<Integer> bst = new GenericBinaryTree<>();
+
+        // Insert some values into the tree
+        bst.insert(10);
+        bst.insert(5);
+        bst.insert(15);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(13);
+        bst.insert(17);
+
+        // Print all of the nodes in the tree
+        bst.printInOrder();
+    }
+
+
 }

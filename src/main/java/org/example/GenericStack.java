@@ -4,23 +4,22 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;
-public class Stack {
-    // The list of elements in the stack
-    private List<Object> elements;
+public class GenericStack<T> implements Iterable<T>{
+    private List<T> elements;
 
     // Constructs a new empty stack
-    public Stack() {
-        this.elements = new ArrayList<Object>();
+    public GenericStack() {
+        this.elements = new ArrayList<T>();
     }
 
     // Pushes an element onto the top of the stack
-    public void push(Object element) {
+    public void push(T element) {
         this.elements.add(element);
     }
 
     // Removes and returns the top element from the stack
     // Throws an EmptyStackException if the stack is empty
-    public Object pop() {
+    public T pop() {
         if (this.isEmpty()) {
             throw new EmptyStackException();
         }
@@ -29,7 +28,7 @@ public class Stack {
 
     // Returns the top element from the stack without removing it
     // Throws an EmptyStackException if the stack is empty
-    public Object peek() {
+    public T peek() {
         if (this.isEmpty()) {
             throw new EmptyStackException();
         }
@@ -42,26 +41,19 @@ public class Stack {
     }
 
     // Returns an iterator for the elements in the stack
-    public Iterator<Object> iterator() {
+    public Iterator<T> iterator() {
         return this.elements.iterator();
     }
 
     public static void main(String[] args){
-        Stack stack = new Stack();
+        GenericStack<Integer> stack = new GenericStack<Integer>();
         stack.push(1);
-        stack.push("two");
-        stack.push(3.0);
+        stack.push(2);
+        stack.push(3);
 
-        do {
-            Object element = stack.pop();
-            if (element instanceof Integer) {
-                System.out.println((Integer) element);
-            } else if (element instanceof String) {
-                System.out.println((String) element);
-            } else if (element instanceof Double) {
-                System.out.println((Double) element);
-            }
-        }while (!stack.isEmpty());
+        for (Integer element : stack){
+            System.out.print(element + " ");
+        }
     }
 
 }

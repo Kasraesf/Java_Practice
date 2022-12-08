@@ -1,10 +1,8 @@
 package org.example;
 
-import java.util.HashMap;
-
-public class GenericHashMap {
+public class HashMap {
     // Declare a Generic HashMap with a String key and Integer value
-    private HashMap<String, Integer> map = new HashMap<String, Integer>();
+    private java.util.HashMap<String, Integer> map = new java.util.HashMap<String, Integer>();
 
     // Function to put a new key-value pair in the HashMap
     public void put(String key, Integer value) {
@@ -42,7 +40,7 @@ public class GenericHashMap {
     }
     public static void main(String[] args) {
         // Create a new instance of the MyClass class
-        GenericHashMap myClass = new GenericHashMap();
+        HashMap myClass = new HashMap();
 
         // Put some key-value pairs in the HashMap
         myClass.put("key1", 1);
