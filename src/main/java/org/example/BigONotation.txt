@@ -1,0 +1,19 @@
+Big O notation is a mathematical notation that is used to describe the complexity of an algorithm. In Java, Big O notation is often used to describe the performance of a particular algorithm or data structure.
+
+Big O notation is typically used to describe the worst-case scenario for an algorithm, as this provides an upper bound on the performance of the algorithm. This means that the algorithm will never take longer than the time described by the Big O notation, even in the worst case.
+
+Here are some examples of common Big O instructions in Java:
+
+O(1): This is the best-case scenario for an algorithm, where the time it takes to run is constant and does not depend on the size of the input. An example of an O(1) algorithm is looking up an element in an array by its index.
+
+O(n): This is the case where the time it takes to run the algorithm grows linearly with the size of the input. An example of an O(n) algorithm is iterating over all the elements in an array and performing some operation on each element.
+
+O(n^2): This is the case where the time it takes to run the algorithm grows with the square of the size of the input. An example of an O(n^2) algorithm is performing a nested loop over all the elements in an array and performing some operation on each pair of elements.
+
+O(log n): This is the case where the time it takes to run the algorithm grows logarithmically with the size of the input. An example of an O(log n) algorithm is performing a binary search on a sorted array.
+
+O(n log n) algorithm is performing a sorting algorithm, such as quicksort or mergesort, on an array of n elements.
+
+In general, a lower Big O notation is better, as it indicates that the algorithm will run faster for larger inputs. For example, an O(n log n) algorithm is generally considered to be faster than an O(n^2) algorithm for large inputs, because the growth rate of the O(n log n) algorithm is slower.
+
+However, it is important to note that Big O notation is only an approximation of the performance of an algorithm, and it does not take into account other factors that can affect the actual performance, such as the specific input data and the hardware and software used to run the algorithm. Therefore, it is not always accurate to compare the performance of different algorithms based solely on their Big O notation.
