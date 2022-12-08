@@ -1,0 +1,7 @@
+Concurrency in Java refers to the ability of the Java language and runtime environment to execute multiple threads of execution concurrently. A thread of execution is a sequence of instructions that can be executed independently of other threads.
+
+Java provides several mechanisms for managing concurrent execution of threads, including the Thread class, the Executor framework, and the java.util.concurrent package. These mechanisms allow developers to create and manage multiple threads of execution, which can improve the performance and scalability of Java applications by making use of multiple CPU cores.
+
+Concurrency is an important concept in Java programming, as it allows developers to write programs that can take advantage of multiple CPU cores and run multiple tasks concurrently. This can be useful for improving the performance of programs that perform computationally intensive tasks, such as data processing or machine learning.
+
+However, concurrency can also introduce complexity and potential errors into a program. For example, concurrent access to shared data can lead to race conditions, where the behavior of the program depends on the order in which threads are executed. To avoid these problems, Java provides mechanisms for synchronizing access to shared data, such as the synchronized keyword and the java.util.concurrent.locks package.
